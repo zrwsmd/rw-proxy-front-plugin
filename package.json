@@ -1,0 +1,76 @@
+{
+  "name": "rw-proxy-vscode",
+  "displayName": "rw-proxy",
+  "description": "A lightweight rw-proxy VS Code client for one-key multi-model access.",
+  "version": "0.0.1",
+  "publisher": "zrwsmd",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:rwProxy.sidebar",
+    "onCommand:rwProxy.focusPanel",
+    "onCommand:rwProxy.clearChat",
+    "onCommand:rwProxy.disconnect"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "rwProxy",
+          "title": "rw-proxy",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "rwProxy": [
+        {
+          "type": "webview",
+          "id": "rwProxy.sidebar",
+          "name": "rw-proxy"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "rwProxy.focusPanel",
+        "title": "Focus rw-proxy",
+        "category": "rw-proxy"
+      },
+      {
+        "command": "rwProxy.clearChat",
+        "title": "Clear rw-proxy Chat",
+        "category": "rw-proxy"
+      },
+      {
+        "command": "rwProxy.disconnect",
+        "title": "Disconnect rw-proxy",
+        "category": "rw-proxy"
+      }
+    ],
+    "configuration": {
+      "title": "rw-proxy",
+      "properties": {
+        "rwProxy.defaultServiceUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:3000",
+          "description": "Default rw-proxy gateway URL used by the extension."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  }
+}
