@@ -66,14 +66,19 @@ function getWebviewScript(): string {
 
         html, body {
           margin: 0;
-          min-height: 100%;
+          height: 100%;
           background: radial-gradient(circle at top right, rgba(35, 76, 135, 0.28), transparent 28%), var(--bg);
           color: var(--text);
           font-family: Consolas, 'Segoe UI', sans-serif;
         }
 
+        #app {
+          height: 100%;
+        }
+
         body {
           padding: 0;
+          overflow: hidden;
         }
 
         button, input, textarea, select {
@@ -81,10 +86,11 @@ function getWebviewScript(): string {
         }
 
         .shell {
-          min-height: 100vh;
+          height: 100vh;
           display: flex;
           flex-direction: column;
           position: relative;
+          overflow: hidden;
         }
 
         .topbar {
@@ -134,8 +140,9 @@ function getWebviewScript(): string {
         }
 
         .content {
-          flex: 1;
-          padding: 8px 22px 188px;
+          flex: 1 1 auto;
+          min-height: 0;
+          padding: 8px 22px 18px;
           overflow-y: auto;
         }
 
@@ -314,6 +321,7 @@ function getWebviewScript(): string {
           margin-top: 16px;
           display: grid;
           gap: 12px;
+          padding-bottom: 4px;
         }
 
         .message {
@@ -357,10 +365,8 @@ function getWebviewScript(): string {
         }
 
         .composer-shell {
-          position: fixed;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          position: relative;
+          flex: 0 0 auto;
           padding: 0 22px 18px;
           background: linear-gradient(180deg, rgba(19,21,23,0), rgba(19,21,23,0.92) 22%, rgba(19,21,23,1) 42%);
         }
@@ -380,7 +386,8 @@ function getWebviewScript(): string {
 
         .composer textarea {
           width: 100%;
-          min-height: 102px;
+          min-height: 88px;
+          max-height: 220px;
           resize: vertical;
           border: 0;
           outline: none;
@@ -884,6 +891,13 @@ function getWebviewScript(): string {
             </article>
           \`;
         }).join('');
+
+        requestAnimationFrame(function () {
+          const contentEl = document.getElementById('content');
+          if (contentEl) {
+            contentEl.scrollTop = contentEl.scrollHeight;
+          }
+        });
       }
 
       function renderModels() {
